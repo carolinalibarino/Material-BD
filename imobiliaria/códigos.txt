@@ -1,0 +1,97 @@
+
+-- Geração de Modelo físico
+-- Sql ANSI 2003 - brModelo.
+
+
+
+CREATE TABLE proprietario (
+id_prop int(11) PRIMARY KEY,
+nasc date,
+nome varchar(255),
+email varchar(255),
+cpf varchar(255),
+telefone varchar(255),
+banco varchar (255),
+agencia varchar (255),
+conta varchar (255),
+pix varchar (255),
+qtd_imovel int(11)
+)
+
+CREATE TABLE endereco (
+id_endereco int(11) PRIMARY KEY,
+bairro varchar(255),
+estado varchar(255),
+cidade varchar(255),
+rua varchar(255),
+numero varchar(255),
+CEP varchar (255),
+complemento varchar(255),
+id_imovel varchar(255)
+)
+
+CREATE TABLE fiador (
+id_fiador int(11) PRIMARY KEY
+nome varchar(255),
+email varchar (255),
+cpf varchar(255),
+nasc date,
+)
+
+CREATE TABLE aluguel (
+id_aluguel int(11) PRIMARY KEY,
+inicio date,
+fim date,
+valor decimal(4,2),
+id_corretor int(11),
+id_inquilino int(11),
+id_imovel varchar(255)
+)
+
+CREATE TABLE imovel (
+id_imovel varchar(255) PRIMARY KEY,
+qtd_banheiro int(11),
+qts_quarto int(11),
+tamanho int(11),
+garagem boolean,
+extras varchar(255),
+piscina bit,
+lavanderia bit
+)
+
+CREATE TABLE inquilino (
+id_inquilino int(11) PRIMARY KEY,
+nome varchar(255),
+cpf varchar(255),
+email varchar(255),
+nasc date,
+id_fiador int(11),
+FOREIGN KEY(id_fiador) REFERENCES fiador (id_fiador)
+)
+
+CREATE TABLE corretor (
+id_corretor int(11) PRIMARY KEY
+nome varchar(255),
+email varchar (255),
+cpf varchar(255),
+nasc varchar(255),
+)
+
+CREATE TABLE fotos (
+id_foto int(11) PRIMARY KEY,
+midia varchar(255),
+id_imovel varchar(255),
+FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
+)
+
+CREATE TABLE possui (
+id_prop int(11),
+id_imovel varchar(255),
+FOREIGN KEY(id_prop) REFERENCES proprietario (id_prop),
+FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
+)
+
+ALTER TABLE endereco ADD FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
+ALTER TABLE aluguel ADD FOREIGN KEY(id_corretor) REFERENCES corretor (id_corretor)
+ALTER TABLE aluguel ADD FOREIGN KEY(id_inquilino) REFERENCES inquilino (id_inquilino)
+ALTER TABLE aluguel ADD FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
