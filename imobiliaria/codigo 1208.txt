@@ -1,0 +1,94 @@
+CREATE TABLE proprietario (
+id_prop int(11) PRIMARY KEY auto_increment ,
+nasc date,
+nome varchar(255) not null,
+email varchar(255) unique not null,
+cpf varchar(255) unique not null,
+telefone varchar(255),
+banco varchar (255) not null,
+agencia varchar (255) not null,
+conta varchar (255) not null,
+pix varchar (255)  not null,
+qtd_imovel int(11)
+)
+
+CREATE TABLE imovel (
+id_imovel int(11) PRIMARY KEY AUTO_INCREMENT,
+qtd_banheiro int(11),
+qts_quarto int(11),
+tamanho int(11),
+garagem bit,
+extras varchar(255),
+piscina bit,
+lavanderia bit
+)
+
+CREATE TABLE endereco (
+id_endereco int(11) PRIMARY KEY auto_increment,
+bairro varchar(255),
+estado varchar(255),
+cidade varchar(255),
+rua varchar(255),
+numero varchar(255),
+CEP varchar (255) not null,
+complemento varchar(255),
+id_imovel int(11),
+FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
+)
+
+CREATE TABLE fiador (
+id_fiador int(11) PRIMARY KEY auto_increment,
+nome varchar(255) not null,
+email varchar (255) unique not null,
+cpf varchar(255) unique not null,
+nasc date,
+)
+
+
+CREATE TABLE inquilino (
+id_inquilino int(11) PRIMARY KEY auto_increment,
+nome varchar(255) not null,
+cpf varchar(255) unique not null,
+email varchar(255) unique not null,
+nasc date,
+id_fiador int(11),
+FOREIGN KEY(id_fiador) REFERENCES fiador (id_fiador)
+)
+
+CREATE TABLE corretor (
+id_corretor int(11) PRIMARY KEY auto_increment,
+nome varchar(255) not null,
+email varchar (255) unique not null,
+cpf varchar(255) unique not null,
+nasc varchar(255),
+)
+
+CREATE TABLE aluguel (
+id_aluguel int(11) PRIMARY KEY auto_increment,
+inicio date,
+fim date,
+valor decimal(4,2),
+id_corretor int(11),
+id_inquilino int(11),
+id_imovel varchar(255),
+FOREIGN KEY(id_corretor) REFERENCES corretor (id_corretor),
+FOREIGN KEY(id_inquilino) REFERENCES inquilino (id_inquilino),
+FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
+
+)
+
+
+CREATE TABLE fotos (
+id_foto int(11) PRIMARY KEY auto_increment,
+midia varchar(255),
+id_imovel varchar(255),
+FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
+)
+
+CREATE TABLE possui (
+id_prop int(11),
+id_imovel varchar(255),
+FOREIGN KEY(id_prop) REFERENCES proprietario (id_prop),
+FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
+)
+
