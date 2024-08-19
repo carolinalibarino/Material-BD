@@ -70,7 +70,7 @@ fim date,
 valor decimal(4,2),
 id_corretor int(11),
 id_inquilino int(11),
-id_imovel varchar(255),
+id_imovel int(11),
 FOREIGN KEY(id_corretor) REFERENCES corretor (id_corretor),
 FOREIGN KEY(id_inquilino) REFERENCES inquilino (id_inquilino),
 FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
@@ -81,7 +81,7 @@ FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
 CREATE TABLE fotos (
 id_foto int(11) PRIMARY KEY auto_increment,
 midia varchar(255),
-id_imovel varchar(255),
+id_imovel int(11),
 FOREIGN KEY(id_imovel) REFERENCES imovel (id_imovel)
 )
 
